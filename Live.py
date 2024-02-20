@@ -1,3 +1,4 @@
+from MemoryGame import play as play_memory_game
 from GuessGame import play as play_guess_game
 
 
@@ -82,7 +83,7 @@ def load_game():
 
         match str(game_choice):
             case Constants.MEMORY_GAME:
-                return True
+                return play_memory_game(difficulty=level_of_difficulty)
             case Constants.GUESS_GAME:
                 return play_guess_game(difficulty=level_of_difficulty)
             case Constants.CURRENCY_ROULETTE:
