@@ -1,12 +1,19 @@
-GAME_CHOICES = 3
-LEVEL_OF_DIFFICULTIES = 5
+from GuessGame import play as play_guess_game
+
+
+class Constants:
+    GAME_CHOICES = 3
+    LEVELS_OF_DIFFICULTY = 5
+    MEMORY_GAME = '1'
+    GUESS_GAME = '2'
+    CURRENCY_ROULETTE = '3'
 
 
 class OutOfLegalGameChoiceValueRangeException(Exception):
     """Exception raised for integer value out of legal game choice value range"""
 
     def __init__(self, game_choice,
-                 message=f"Legal game choice can be in 1-{GAME_CHOICES} range only"):
+                 message=f"Legal game choice can be in 1-{Constants.GAME_CHOICES} range only"):
         super().__init__(message)
         self.game_choice = game_choice
         self.message = message
@@ -20,7 +27,7 @@ class OutOfLegalLevelOfDifficultyValueRangeException(Exception):
     """Exception raised for integer value out of legal level of difficulty value range"""
 
     def __init__(self, level_of_difficulty,
-                 message=f"Legal level of difficulty can be in 1-{LEVEL_OF_DIFFICULTIES} range only"):
+                 message=f"Legal level of difficulty can be in 1-{Constants.LEVELS_OF_DIFFICULTY} range only"):
         super().__init__(message)
         self.level_of_difficulty = level_of_difficulty
         self.message = message
@@ -36,11 +43,11 @@ def welcome(name):
 
 
 def is_game_choice_legal(game_choice):
-    return game_choice in range(1, GAME_CHOICES)
+    return game_choice in range(1, Constants.GAME_CHOICES + 1)
 
 
 def is_level_of_difficulty_legal(level_of_difficulty):
-    return level_of_difficulty in range(1, LEVEL_OF_DIFFICULTIES)
+    return level_of_difficulty in range(1, Constants.LEVELS_OF_DIFFICULTY + 1)
 
 
 def load_game():
@@ -72,4 +79,13 @@ def load_game():
             continue
 
         print(f"game_choice = {game_choice}, level_of_difficulty = {level_of_difficulty} ")
-        break
+
+        match str(game_choice):
+            case Constants.MEMORY_GAME:
+                return True
+            case Constants.GUESS_GAME:
+                return play_guess_game(difficulty=level_of_difficulty)
+            case Constants.CURRENCY_ROULETTE:
+                return True
+
+        return False

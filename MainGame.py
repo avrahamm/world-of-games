@@ -1,5 +1,10 @@
-from Live import load_game, welcome, GAME_CHOICES, LEVEL_OF_DIFFICULTIES
+from Live import load_game, welcome
 
 print(welcome("Guy"))
-load_game()
-print(f"GAME_CHOICES = {GAME_CHOICES}, LEVEL_OF_DIFFICULTIES = {LEVEL_OF_DIFFICULTIES}")
+#  load_game() # revert to this call when submitting
+
+""" Testing """
+if load_game():
+    print("You won")
+else:
+    print("You lost")
