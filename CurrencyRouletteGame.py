@@ -25,7 +25,7 @@ def get_money_interval(usd_random_amount, difficulty):
         client = freecurrencyapi.Client(API_KEY)
         result = client.latest(currencies=['ILS'])
         from_usd_to_ils_rate = result['data']['ILS']
-        print(from_usd_to_ils_rate)
+        # print(from_usd_to_ils_rate)
     except (
             everapi.exceptions.IncorrectApikey,
             everapi.exceptions.RateLimitExceeded,
@@ -70,10 +70,10 @@ def play(difficulty):
     """
     usd_random_amount = get_usd_random_amount()
     success_interval = get_money_interval(usd_random_amount, difficulty)
-    print(success_interval)
+    # print(success_interval)
     user_guess = get_guess_from_user(usd_random_amount)
     if user_guess == ILLEGAL_USER_GUESS:
-        print(f'Illegal user guess input. You lost!')
+        # print(f'Illegal user guess input. You lost!')
         return False
 
     return user_guess in range(success_interval['low_limit'],

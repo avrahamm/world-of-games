@@ -75,7 +75,7 @@ def get_list_from_user(difficulty):
     except ValueError as e:
         return ILLEGAL_USER_GUESS
     except OutOfLegalRangeSequenceValueException as e:
-        print(e)
+        # print(e)
         return ILLEGAL_USER_GUESS
 
     return answer_sequence
@@ -89,8 +89,8 @@ def is_list_equal(question_sequence, answer_sequence):
     :param answer_sequence:
     :return: True / False
     """
-    print('MEMORY_GAME')
-    print(f'question_sequence = {question_sequence}, answer_sequence = {answer_sequence}')
+    # print('MEMORY_GAME')
+    # print(f'question_sequence = {question_sequence}, answer_sequence = {answer_sequence}')
     return question_sequence == answer_sequence
 
 
@@ -107,7 +107,7 @@ def play(difficulty):
     question_sequence = generate_sequence(difficulty)
     answer_sequence = get_list_from_user(difficulty)
     if answer_sequence == ILLEGAL_USER_GUESS:
-        print(f'Illegal user guess input. You lost!')
+        # print(f'Illegal user guess input. You lost!')
         return False
 
     return is_list_equal(question_sequence, answer_sequence)

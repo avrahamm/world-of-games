@@ -69,18 +69,18 @@ def load_game():
                 raise OutOfLegalLevelOfDifficultyValueRangeException(level_of_difficulty)
 
         except ValueError as e:
-            print("Not numerical input is illegal. Please try again." + "\n")
+            # print("Not numerical input is illegal. Please try again." + "\n")
             continue
 
         except OutOfLegalGameChoiceValueRangeException as e:
-            print(e)
+            # print(e)
             continue
 
         except OutOfLegalLevelOfDifficultyValueRangeException as e:
-            print(e)
+            # print(e)
             continue
 
-        print(f"game_choice = {game_choice}, level_of_difficulty = {level_of_difficulty} ")
+        # print(f"game_choice = {game_choice}, level_of_difficulty = {level_of_difficulty} ")
 
         match str(game_choice):
             case Constants.MEMORY_GAME:

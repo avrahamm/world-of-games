@@ -40,8 +40,8 @@ def compare_results(secret_number, user_guess):
     :param user_guess:
     :return:
     """
-    print('GUESS_GAME')
-    print(f'secret_number = {secret_number}, user_guess = {user_guess}')
+    # print('GUESS_GAME')
+    # print(f'secret_number = {secret_number}, user_guess = {user_guess}')
     return secret_number == user_guess
 
 
@@ -56,7 +56,7 @@ def play(difficulty):
     user_guess = get_guess_from_user(difficulty)
 
     if user_guess == ILLEGAL_USER_GUESS:
-        print(f'Illegal user guess input. You lost!')
+        # print(f'Illegal user guess input. You lost!')
         return False
 
     return compare_results(secret_number, user_guess)
