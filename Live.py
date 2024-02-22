@@ -1,5 +1,6 @@
 from MemoryGame import play as play_memory_game
 from GuessGame import play as play_guess_game
+from CurrencyRouletteGame import play as play_currency_roulette_game
 
 
 class Constants:
@@ -87,6 +88,6 @@ def load_game():
             case Constants.GUESS_GAME:
                 return play_guess_game(difficulty=level_of_difficulty)
             case Constants.CURRENCY_ROULETTE:
-                return True
+                return play_currency_roulette_game(difficulty=level_of_difficulty)
 
         return False
