@@ -1,6 +1,7 @@
 from MemoryGame import play as play_memory_game
 from GuessGame import play as play_guess_game
 from CurrencyRouletteGame import play as play_currency_roulette_game
+from Score import add_score
 
 
 class Constants:
@@ -56,8 +57,8 @@ def load_game():
     while True:
         try:
             game_choice = int(input("Please choose a game to play:" + "\n" +
-                                    "1. Memory Game - a sequence of numbers will appear for 1 second and you have to" + "\n" +
-                                    "guess it back" + "\n" +
+                                    "1. Memory Game - a sequence of numbers will appear for 1 second and you have to"
+                                    + "\n" + "guess it back" + "\n" +
                                     "2. Guess Game - guess a number and see if you chose like the computer" + "\n" +
                                     "3. Currency Roulette - try and guess the value of a random amount of USD in ILS"
                                     + "\n"))
@@ -82,12 +83,20 @@ def load_game():
 
         # print(f"game_choice = {game_choice}, level_of_difficulty = {level_of_difficulty} ")
 
+        result = False
         match str(game_choice):
             case Constants.MEMORY_GAME:
-                return play_memory_game(difficulty=level_of_difficulty)
+                result = play_memory_game(difficulty=level_of_difficulty)
             case Constants.GUESS_GAME:
-                return play_guess_game(difficulty=level_of_difficulty)
+                result = play_guess_game(difficulty=level_of_difficulty)
             case Constants.CURRENCY_ROULETTE:
-                return play_currency_roulette_game(difficulty=level_of_difficulty)
+                result = play_currency_roulette_game(difficulty=level_of_difficulty)
 
-        return False
+        if user_won(result):
+            add_score(level_of_difficulty)
+
+        return result
+
+
+def user_won(result):
+    return result

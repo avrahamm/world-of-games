@@ -1,2 +1,4 @@
 freecurrencyapi~=0.1.0
 everapi~=0.1.1
+flask
+jinja2

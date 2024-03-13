@@ -1,6 +1,6 @@
 import random
-from os import system, name
 from time import sleep
+from Utils import screen_cleaner
 
 RANDOM_RANGE_MAX = 101
 
@@ -26,21 +26,6 @@ def is_legal_sequence_value(sequence_value):
     return sequence_value
 
 
-def clear():
-    """
-    define our clear function
-    @link: https://www.geeksforgeeks.org/clear-screen-python/
-    :return:
-    """
-    # for windows
-    if name == 'nt':
-        _ = system('cls')
-
-    # for mac and linux(here, os.name is 'posix')
-    else:
-        _ = system('clear')
-
-
 def generate_sequence(difficulty):
     """
     Will generate a list of random numbers between 1 and 101.
@@ -51,7 +36,7 @@ def generate_sequence(difficulty):
     sequence = random.sample(range(1, RANDOM_RANGE_MAX), difficulty)
     print(sequence)
     sleep(3)
-    clear()
+    screen_cleaner()
     return sequence
 
 
@@ -64,7 +49,7 @@ def get_list_from_user(difficulty):
     """
     try:
         user_guess_string = input(f"Please enter {difficulty} numbers were displayed to you"
-                                  f"separated with spaces"
+                                  f" separated with spaces."
                                   f" Illegal format input means automatic technical loss ")
         strings_list = str.split(user_guess_string, " ")
         if len(strings_list) != difficulty:
