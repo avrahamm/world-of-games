@@ -1,0 +1,52 @@
+# Use the official Python image as a base
+FROM python:3.10-slim-bullseye
+
+# Install necessary packages
+RUN apt update && \
+    apt install -y wget gnupg unzip
+
+#ENV CHROME_VERSION="126.0.6478.62"
+
+# Install Chrome (specify the version explicitly)
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
+    apt update && \
+    apt install -y google-chrome-stable && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install ChromeDriver (specify the version explicitly)
+RUN CHROME_DRIVER_VERSION=126.0.6478.62 && \
+    wget -O /tmp/chromedriver.zip https://storage.googleapis.com/chrome-for-testing-public/${CHROME_DRIVER_VERSION}/linux64/chromedriver-linux64.zip && \
+    unzip /tmp/chromedriver.zip -d . && \
+    #    extracts to chromedriver-linux64 folder #
+    mv ./chromedriver-linux64/chromedriver /usr/local/bin/ && \
+    rm /tmp/chromedriver.zip && rm -rf chromedriver-linux64
+
+# Install dependencies including Selenium
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Set the display port to avoid issues with headless mode
+ENV DISPLAY=:99
+
+# To avoid python module issues
+ENV PYTHONPATH=.
+
+# Add a user to run Chrome
+RUN useradd -m chrome && \
+    mkdir -p /home/chrome/.config/google-chrome/ && \
+    chown -R chrome:chrome /home/chrome/.config
+
+USER chrome
+
+# Set up the working directory
+WORKDIR /usr/src/app
+
+# Copy your Python script into the container
+COPY . .
+
+EXPOSE 5000
+
+# Run your Python script
+#CMD [ "python", "./MainScore.py" ]
+CMD ["sh", "-c", "python3 ./MainScore.py && python3 tests/e2e.py"]

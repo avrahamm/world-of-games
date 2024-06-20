@@ -1,0 +1,11 @@
+services:
+  wog:
+    build:
+      dockerfile: Dockerfile-Selenium
+    volumes:
+      - ./scores.txt:/usr/src/app/scores.txt
+    ports:
+      - "8777:5000"
+    image: avrahamm/world-of-games:testing.1 ## goes to your repository on Docker Hub
+    tty: true
+

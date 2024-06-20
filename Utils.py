@@ -5,6 +5,7 @@ from os import system, name
 SCORES_FILE_NAME = "scores.txt"
 # A number representing a bad return code for a function.
 BAD_RETURN_CODE = -1
+GOOD_RETURN_CODE = 0
 
 
 # Screen_cleaner - A function to clear the screen

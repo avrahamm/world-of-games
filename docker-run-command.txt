@@ -1,0 +1,16 @@
+Either by docker cli or by docker compose.
+
+1 Docker cli
+
+$> docker build -t avrahamm/world-of-games:testing -f Dockerfile-Selenium .
+$> docker run --rm -d --name wog -v ./scores.txt:/usr/src/app/scores.txt -p 8777:5000 avrahamm/world-of-games:testing
+$> docker stop wog
+$> docker login
+$> docker image push avrahamm/world-of-games:testing
+
+2 Docker compose
+
+$> docker compose build
+$> docker compose up wog
+$> docker compose push
+$> docker compose down
