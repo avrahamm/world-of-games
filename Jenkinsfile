@@ -20,5 +20,12 @@ pipeline {
                 echo 'Deploying....'
             }
         }
+
+        stage('Deploy') {
+            steps {
+                echo 'Cleaning....'
+                sh 'cd ..; rm -rf wog'
+            }
+        }
     }
 }
