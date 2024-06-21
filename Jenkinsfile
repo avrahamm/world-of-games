@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 sh 'git clone https://github.com/avrahamm/world-of-games.git wog'
-                sh 'cd wog; ls -la'
+                sh 'cd wog'
             }
         }
         stage('Test') {
