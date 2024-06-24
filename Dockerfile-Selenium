@@ -1,11 +1,24 @@
 # Use the official Python image as a base
 FROM python:3.10-slim-bullseye
 
+ARG CHROME_DRIVER_VERSION
+ARG SELENIUM_HEADLESS_MODE_DISPLAY_PORT
+ARG INITIAL_SCORE_FOR_TESTING
+ARG WORKDIR
+ARG CONTAINER_APP_PORT
+ARG PUBLISHED_APP_PORT
+
+ENV CHROME_DRIVER_VERSION=${CHROME_DRIVER_VERSION}
+ENV SELENIUM_HEADLESS_MODE_DISPLAY_PORT=${SELENIUM_HEADLESS_MODE_DISPLAY_PORT}
+ENV INITIAL_SCORE_FOR_TESTING=${INITIAL_SCORE_FOR_TESTING}
+ENV WORKDIR=${WORKDIR}
+ENV CONTAINER_APP_PORT=${CONTAINER_APP_PORT}
+ENV PUBLISHED_APP_PORT=${PUBLISHED_APP_PORT}
+
+
 # Install necessary packages
 RUN apt update && \
     apt install -y wget gnupg unzip
-
-#ENV CHROME_VERSION="126.0.6478.62"
 
 # Install Chrome (specify the version explicitly)
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
@@ -15,7 +28,7 @@ RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add
     rm -rf /var/lib/apt/lists/*
 
 # Install ChromeDriver (specify the version explicitly)
-RUN CHROME_DRIVER_VERSION=126.0.6478.62 && \
+RUN CHROME_DRIVER_VERSION=${CHROME_DRIVER_VERSION} && \
     wget -O /tmp/chromedriver.zip https://storage.googleapis.com/chrome-for-testing-public/${CHROME_DRIVER_VERSION}/linux64/chromedriver-linux64.zip && \
     unzip /tmp/chromedriver.zip -d . && \
     #    extracts to chromedriver-linux64 folder #
@@ -27,7 +40,7 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Set the display port to avoid issues with headless mode
-ENV DISPLAY=:99
+ENV DISPLAY=:${SELENIUM_HEADLESS_MODE_DISPLAY_PORT}
 
 # To avoid python module issues
 ENV PYTHONPATH=.
@@ -40,12 +53,12 @@ RUN useradd -m chrome && \
 USER chrome
 
 # Set up the working directory
-WORKDIR /usr/src/app
+WORKDIR ${WORKDIR}
 
 # Copy your Python script into the container
 COPY . .
 
-EXPOSE 5000
+EXPOSE ${CONTAINER_APP_PORT}
 
 # Run your Python script
 #CMD [ "python", "./MainScore.py" ]

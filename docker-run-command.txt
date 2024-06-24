@@ -11,6 +11,6 @@ $> docker image push avrahamm/world-of-games:testing
 2 Docker compose
 
 $> docker compose build
-$> docker compose up wog
+$> docker compose up -d wog
 $> docker compose push
 $> docker compose down

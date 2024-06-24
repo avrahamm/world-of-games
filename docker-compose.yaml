@@ -1,11 +1,20 @@
 services:
   wog:
+#    env_file: ".env"
     build:
+      context: .
       dockerfile: Dockerfile-Selenium
+    environment:
+      - CHROME_DRIVER_VERSION=${CHROME_DRIVER_VERSION}
+      - SELENIUM_HEADLESS_MODE_DISPLAY_PORT=${SELENIUM_HEADLESS_MODE_DISPLAY_PORT}
+      - INITIAL_SCORE_FOR_TESTING=${INITIAL_SCORE_FOR_TESTING}
+      - WORKDIR=${WORKDIR}
+      - CONTAINER_APP_PORT=${CONTAINER_APP_PORT}
+      - PUBLISHED_APP_PORT=${PUBLISHED_APP_PORT}
     volumes:
-      - ./scores.txt:/usr/src/app/scores.txt
+      - ./{SCORES_FILE_NAME}:${WORKDIR}/${SCORES_FILE_NAME}
     ports:
-      - "8777:5000"
-    image: avrahamm/world-of-games:testing.1 ## goes to your repository on Docker Hub
+      - "${PUBLISHED_APP_PORT}:${CONTAINER_APP_PORT}"
+    image: ${IMAGE_NAME} ## goes to your repository on Docker Hub
     tty: true
 
