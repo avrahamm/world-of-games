@@ -30,7 +30,7 @@ pipeline {
             steps {
                 sh 'whoami'
                 sh 'pwd'
-                sh 'echo $DOCKER_ENV_FILE_PATH; cp $DOCKER_ENV_FILE_PATH wog/.env '
+                sh 'echo $DOCKER_ENV_FILE_PATH; cp $DOCKER_ENV_FILE_PATH wog/.env; chmod 644 wog/.env '
                 sh 'cat wog/.env'
 
             }
@@ -60,7 +60,7 @@ pipeline {
             steps {
                 echo 'Deploying....'
                 sh 'docker images | grep wo'
-                sh 'cd wog; docker login; docker compose push'
+                sh 'cd wog; docker login; echo "docker compose push"'
             }
         }
 
