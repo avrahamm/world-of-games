@@ -1,20 +1,18 @@
 services:
   wog:
-    env_file: ".env"
     build:
       context: .
       dockerfile: Dockerfile-Selenium
-    environment:
-      - CHROME_DRIVER_VERSION
-      - SELENIUM_HEADLESS_MODE_DISPLAY_PORT
-      - INITIAL_SCORE_FOR_TESTING
-      - WORKDIR
-      - CONTAINER_APP_PORT
-      - PUBLISHED_APP_PORT
+      args:
+        - CHROME_DRIVER_VERSION=${CHROME_DRIVER_VERSION}
+        - WORKDIR=${WORKDIR}
+        - CONTAINER_APP_PORT=${CONTAINER_APP_PORT}
+    env_file:
+      - .env
     volumes:
-      - ./{SCORES_FILE_NAME}:${WORKDIR}/${SCORES_FILE_NAME}
+      - ./${SCORES_FILE_NAME}:${WORKDIR}/${SCORES_FILE_NAME}
     ports:
       - "${PUBLISHED_APP_PORT}:${CONTAINER_APP_PORT}"
-    image: ${IMAGE_NAME} ## goes to your repository on Docker Hub
+    image: ${IMAGE_NAME}
     tty: true
 

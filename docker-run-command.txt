@@ -1,4 +1,7 @@
 Either by docker cli or by docker compose.
+Jenkinsfile uses docker compose because pros of using env_file: .env
+hides sensitive info from version control.
+Sensitive info is stored directly on Jenkins server.
 
 1 Docker cli
 
